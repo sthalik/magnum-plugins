@@ -126,6 +126,15 @@ target_link_libraries(your-app PRIVATE MagnumPlugins::StbImageConverter)
 See @ref building-plugins, @ref cmake-plugins, @ref plugins and
 @ref file-formats for more information.
 
+@section Trade-StbImageConverter-formats Leaving formats out of the build
+
+Setting `MAGNUM_STBIMAGECONVERTER_NO_<FORMAT>` to `ON`, where `<FORMAT>` is one
+of `BMP`, `HDR`, `JPEG`, `PNG` or `TGA`, excludes the encoder for that format
+from the build. The plugin then no longer provides the corresponding aliases
+and @ref convertToFile() rejects that file extension. At least one format has
+to stay enabled; to get rid of the plugin entirely, disable
+`MAGNUM_WITH_STBIMAGECONVERTER` instead.
+
 @section Trade-StbImageConverter-behavior Behavior and limitations
 
 @m_class{m-note m-warning}

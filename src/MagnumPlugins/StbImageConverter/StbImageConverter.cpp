@@ -39,10 +39,34 @@
 #include <Magnum/ImageView.h>
 #include <Magnum/PixelFormat.h>
 
+#if defined(MAGNUM_STBIMAGECONVERTER_NO_BMP) && \
+    defined(MAGNUM_STBIMAGECONVERTER_NO_HDR) && \
+    defined(MAGNUM_STBIMAGECONVERTER_NO_JPEG) && \
+    defined(MAGNUM_STBIMAGECONVERTER_NO_PNG) && \
+    defined(MAGNUM_STBIMAGECONVERTER_NO_TGA)
+#error at least one output format has to be enabled
+#endif
+
+#define STBI_WRITE_NO_STDIO
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+/* stb_image_write has no per-format macros the way stb_image does. Disabled
+   formats are stripped by making every writer static and not referencing it,
+   which leaves the compiler to drop it. */
+#define STB_IMAGE_WRITE_STATIC
 #define STBI_ASSERT CORRADE_INTERNAL_ASSERT
+/* The zlib compressor and the four HDR helpers are written without STBIWDEF, so
+   STB_IMAGE_WRITE_STATIC leaves them external and the linker has to keep them
+   whatever is disabled. The anonymous namespace covers them too. Its includes
+   have to come first, or they land inside it. */
+#include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <assert.h>
+namespace {
 /* Not defining malloc/free, because there's no equivalent for realloc in C++ */
 #include "stb_image_write.h"
+}
 
 namespace Magnum { namespace Trade {
 
@@ -177,17 +201,34 @@ Containers::Optional<Containers::Array<char>> StbImageConverter::doConvertToData
        failure (which isn't really recoverable as the whole OS is a mess at
        that point anyway) all of them are checked by AbstractImageConverter
        already so it's fine to just assert here. */
-    if(_format == Format::Bmp) {
+    /* Dummy branch so any format can be the first one left in */
+    if(false) {}
+    #ifndef MAGNUM_STBIMAGECONVERTER_NO_BMP
+    else if(_format == Format::Bmp) {
         CORRADE_INTERNAL_ASSERT_OUTPUT(stbi_write_bmp_to_func(writeFunc, &data, image.size().x(), image.size().y(), components, flippedPackedData.data()));
-    } else if(_format == Format::Jpeg) {
+    }
+    #endif
+    #ifndef MAGNUM_STBIMAGECONVERTER_NO_JPEG
+    else if(_format == Format::Jpeg) {
         CORRADE_INTERNAL_ASSERT_OUTPUT(stbi_write_jpg_to_func(writeFunc, &data, image.size().x(), image.size().y(), components, flippedPackedData.data(), Int(configuration().value<Float>("jpegQuality")*100.0f)));
-    } else if(_format == Format::Hdr) {
+    }
+    #endif
+    #ifndef MAGNUM_STBIMAGECONVERTER_NO_HDR
+    else if(_format == Format::Hdr) {
         CORRADE_INTERNAL_ASSERT_OUTPUT(stbi_write_hdr_to_func(writeFunc, &data, image.size().x(), image.size().y(), components, reinterpret_cast<float*>(flippedPackedData.data())));
-    } else if(_format == Format::Png) {
+    }
+    #endif
+    #ifndef MAGNUM_STBIMAGECONVERTER_NO_PNG
+    else if(_format == Format::Png) {
         CORRADE_INTERNAL_ASSERT_OUTPUT(stbi_write_png_to_func(writeFunc, &data, image.size().x(), image.size().y(), components, flippedPackedData.data(), 0));
-    } else if(_format == Format::Tga) {
+    }
+    #endif
+    #ifndef MAGNUM_STBIMAGECONVERTER_NO_TGA
+    else if(_format == Format::Tga) {
         CORRADE_INTERNAL_ASSERT_OUTPUT(stbi_write_tga_to_func(writeFunc, &data, image.size().x(), image.size().y(), components, flippedPackedData.data()));
-    } else CORRADE_INTERNAL_ASSERT_UNREACHABLE(); /* LCOV_EXCL_LINE */
+    }
+    #endif
+    else CORRADE_INTERNAL_ASSERT_UNREACHABLE(); /* LCOV_EXCL_LINE */
 
     /* Convert the growable array back to a non-growable with the default
        deleter so we can return it */
@@ -207,21 +248,32 @@ bool StbImageConverter::doConvertToFile(const ImageView2D& image, const Containe
        from extension if it's not supplied explicitly */
     const Format previousFormat = _format;
     if(_format == Format{}) {
-        if(normalizedExtension == ".bmp"_s)
+        if(false) {}
+        #ifndef MAGNUM_STBIMAGECONVERTER_NO_BMP
+        else if(normalizedExtension == ".bmp"_s)
             _format = Format::Bmp;
+        #endif
+        #ifndef MAGNUM_STBIMAGECONVERTER_NO_HDR
         else if(normalizedExtension == ".hdr"_s)
             _format = Format::Hdr;
+        #endif
+        #ifndef MAGNUM_STBIMAGECONVERTER_NO_JPEG
         else if(normalizedExtension == ".jpg"_s ||
                 normalizedExtension == ".jpeg"_s ||
                 normalizedExtension == ".jpe"_s)
             _format = Format::Jpeg;
+        #endif
+        #ifndef MAGNUM_STBIMAGECONVERTER_NO_PNG
         else if(normalizedExtension == ".png"_s)
             _format = Format::Png;
+        #endif
+        #ifndef MAGNUM_STBIMAGECONVERTER_NO_TGA
         else if(normalizedExtension == ".tga"_s ||
                 normalizedExtension == ".vda"_s ||
                 normalizedExtension == ".icb"_s ||
                 normalizedExtension == ".vst"_s)
             _format = Format::Tga;
+        #endif
         else {
             Error{} << "Trade::StbImageConverter::convertToFile(): cannot determine output format for" << Utility::Path::filename(filename) << "(plugin loaded as" << plugin() << Error::nospace << ", use one of the Stb{Bmp,Hdr,Jpeg,Png,Tga}ImageConverter aliases or a corresponding file extension)";
             return false;

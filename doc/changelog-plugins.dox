@@ -239,6 +239,12 @@ namespace Magnum {
 
 @subsection changelog-plugins-latest-buildsystem Build system
 
+-   Individual image formats can now be left out of
+    @relativeref{Trade,StbImageImporter} and
+    @relativeref{Trade,StbImageConverter} with
+    `MAGNUM_STBIMAGEIMPORTER_NO_<FORMAT>` and
+    `MAGNUM_STBIMAGECONVERTER_NO_<FORMAT>`, which also removes the
+    corresponding plugin aliases
 -   The oldest supported Clang version is now 6.0 (available on Ubuntu 18.04),
     or equivalently Apple Clang 10.0 (Xcode 10). Oldest supported GCC version
     is still 4.8.

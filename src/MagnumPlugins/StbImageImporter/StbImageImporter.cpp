@@ -50,6 +50,34 @@
 #define STBI_THREAD_LOCAL CORRADE_THREAD_LOCAL
 #endif
 
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_BMP
+#define STBI_NO_BMP
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_GIF
+#define STBI_NO_GIF
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+#define STBI_NO_HDR
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+#define STBI_NO_JPEG
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_PIC
+#define STBI_NO_PIC
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+#define STBI_NO_PNG
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNM
+#define STBI_NO_PNM
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_PSD
+#define STBI_NO_PSD
+#endif
+#ifdef MAGNUM_STBIMAGEIMPORTER_NO_TGA
+#define STBI_NO_TGA
+#endif
+
 /* Not defining malloc/free, because there's no equivalent for realloc in C++ */
 #include "stb_image.h"
 
@@ -107,15 +135,18 @@ void StbImageImporter::doOpenData(Containers::Array<char>&& data, const DataFlag
     /* The docs say this is enabled by default, but it's *not*. Ugh. */
     /** @todo do BGR -> RGB processing here instead, this may get obsolete:
         https://github.com/nothings/stb/pull/950 */
+    #ifndef STBI_NO_PNG
     #ifdef CORRADE_BUILD_MULTITHREADED
     stbi_convert_iphone_png_to_rgb_thread
     #else
     stbi_convert_iphone_png_to_rgb
     #endif
         (true);
+    #endif
 
     /* Try to open as a gif. If that succeeds, great. If that fails, the actual
        opening (and error handling) is done in doImage2D(). */
+    #ifndef STBI_NO_GIF
     {
         int* delays;
         Vector3i size;
@@ -142,6 +173,7 @@ void StbImageImporter::doOpenData(Containers::Array<char>&& data, const DataFlag
             return;
         }
     }
+    #endif
 
     /* Take over the existing array or copy the data if we can't */
     _in.emplace();

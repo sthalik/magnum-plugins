@@ -135,6 +135,19 @@ target_link_libraries(your-app PRIVATE MagnumPlugins::StbImageImporter)
 See @ref building-plugins, @ref cmake-plugins, @ref plugins and
 @ref file-formats for more information.
 
+@section Trade-StbImageImporter-formats Leaving formats out of the build
+
+Setting `MAGNUM_STBIMAGEIMPORTER_NO_<FORMAT>` to `ON`, where `<FORMAT>` is one
+of `BMP`, `GIF`, `HDR`, `JPEG`, `PIC`, `PNG`, `PNM`, `PSD` or `TGA`, excludes
+the decoder for that format from the build. The plugin then no longer provides
+the corresponding alias --- with `MAGNUM_STBIMAGEIMPORTER_NO_PNG` enabled,
+loading @cpp "PngImporter" @ce through this plugin fails and opening a PNG
+file with @cpp "StbImageImporter" @ce itself fails at @ref image2D(). `PNM`
+covers both @cpp "PgmImporter" @ce and @cpp "PpmImporter" @ce.
+
+Note that @ref openData() succeeds for any input regardless of which formats
+are compiled in, as the format is detected only when the image is decoded.
+
 @section Trade-StbImageImporter-behavior Behavior and limitations
 
 @m_class{m-note m-warning}

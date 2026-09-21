@@ -967,7 +967,10 @@ void StbImageImporterTest::multithreaded() {
 
     int counterA = 0, counterB = 0;
     {
-        constexpr const char data[1]{};
+        /* Static so the lambda doesn't capture it -- openData() takes its
+           address, and MSVC 19.51 and 19.52 reject that capture with C2326
+           under /permissive- */
+        static constexpr const char data[1]{};
         auto fn = [&](AbstractImporter& importer, int& counter) {
             for(std::size_t i = 0; i != 1000; ++i) {
                 /* This function should call stbi_convert_iphone_png_to_rgb()

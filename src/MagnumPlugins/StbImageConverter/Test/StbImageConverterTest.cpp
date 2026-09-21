@@ -181,6 +181,10 @@ StbImageConverterTest::StbImageConverterTest() {
 }
 
 void StbImageConverterTest::wrongFormat() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_TGA
+    CORRADE_SKIP("TGA output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbTgaImageConverter");
 
     const char data[16]{};
@@ -191,6 +195,10 @@ void StbImageConverterTest::wrongFormat() {
 }
 
 void StbImageConverterTest::wrongFormatHdr() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_HDR
+    CORRADE_SKIP("HDR output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbHdrImageConverter");
 
     const char data[4]{};
@@ -248,6 +256,10 @@ void StbImageConverterTest::bmpRg() {
     auto&& data = QuietData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
 
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_BMP
+    CORRADE_SKIP("BMP output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbBmpImageConverter");
     converter->addFlags(data.flags);
     CORRADE_COMPARE(converter->extension(), "bmp");
@@ -269,6 +281,9 @@ void StbImageConverterTest::bmpRg() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_BMP
+    CORRADE_SKIP("StbImageImporter BMP support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*fileData));
@@ -305,6 +320,10 @@ constexpr const Float ConvertedGrayscale32FData[] = {
 };
 
 void StbImageConverterTest::hdrGrayscale() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_HDR
+    CORRADE_SKIP("HDR output is not compiled in");
+    #endif
+
     Containers::Pointer<Trade::AbstractImageConverter> converter = _converterManager.instantiate("StbHdrImageConverter");
     CORRADE_COMPARE(converter->extension(), "hdr");
     CORRADE_COMPARE(converter->mimeType(), "image/vnd.radiance");
@@ -314,6 +333,9 @@ void StbImageConverterTest::hdrGrayscale() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("StbImageImporter HDR support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -331,6 +353,10 @@ void StbImageConverterTest::hdrGrayscale() {
 void StbImageConverterTest::hdrRg() {
     auto&& data = QuietData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_HDR
+    CORRADE_SKIP("HDR output is not compiled in");
+    #endif
 
     Containers::Pointer<Trade::AbstractImageConverter> converter = _converterManager.instantiate("StbHdrImageConverter");
     converter->addFlags(data.flags);
@@ -355,6 +381,9 @@ void StbImageConverterTest::hdrRg() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("StbImageImporter HDR support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*fileData));
@@ -385,6 +414,10 @@ constexpr const Float OriginalRgba32FData[] = {
 const ImageView2D OriginalRgba32F{PixelFormat::RGBA32F, {2, 3}, OriginalRgba32FData};
 
 void StbImageConverterTest::hdrRgb() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_HDR
+    CORRADE_SKIP("HDR output is not compiled in");
+    #endif
+
     Containers::Pointer<Trade::AbstractImageConverter> converter = _converterManager.instantiate("StbHdrImageConverter");
     CORRADE_COMPARE(converter->extension(), "hdr");
     CORRADE_COMPARE(converter->mimeType(), "image/vnd.radiance");
@@ -397,6 +430,9 @@ void StbImageConverterTest::hdrRgb() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("StbImageImporter HDR support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -413,6 +449,10 @@ void StbImageConverterTest::hdrRgb() {
 void StbImageConverterTest::hdrRgba() {
     auto&& data = QuietData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_HDR
+    CORRADE_SKIP("HDR output is not compiled in");
+    #endif
 
     Containers::Pointer<Trade::AbstractImageConverter> converter = _converterManager.instantiate("StbHdrImageConverter");
     converter->addFlags(data.flags);
@@ -437,6 +477,9 @@ void StbImageConverterTest::hdrRgba() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("StbImageImporter HDR support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*fileData));
@@ -524,6 +567,10 @@ constexpr const char ConvertedJpegRgbData[] = {
 };
 
 void StbImageConverterTest::jpegRgb80Percent() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_JPEG
+    CORRADE_SKIP("JPEG output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbJpegImageConverter");
     CORRADE_COMPARE(converter->extension(), "jpg");
     CORRADE_COMPARE(converter->mimeType(), "image/jpeg");
@@ -534,6 +581,9 @@ void StbImageConverterTest::jpegRgb80Percent() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    CORRADE_SKIP("StbImageImporter JPEG support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -546,6 +596,10 @@ void StbImageConverterTest::jpegRgb80Percent() {
 }
 
 void StbImageConverterTest::jpegRgb100Percent() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_JPEG
+    CORRADE_SKIP("JPEG output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbJpegImageConverter");
     CORRADE_COMPARE(converter->extension(), "jpg");
     CORRADE_COMPARE(converter->mimeType(), "image/jpeg");
@@ -557,6 +611,9 @@ void StbImageConverterTest::jpegRgb100Percent() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    CORRADE_SKIP("StbImageImporter JPEG support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -571,6 +628,10 @@ void StbImageConverterTest::jpegRgb100Percent() {
 void StbImageConverterTest::jpegRgba80Percent() {
     auto&& data = QuietData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_JPEG
+    CORRADE_SKIP("JPEG output is not compiled in");
+    #endif
 
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbJpegImageConverter");
     converter->addFlags(data.flags);
@@ -594,6 +655,9 @@ void StbImageConverterTest::jpegRgba80Percent() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    CORRADE_SKIP("StbImageImporter JPEG support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*fileData));
@@ -647,6 +711,10 @@ const ImageView2D OriginalJpegGrayscale{PixelStorage{}.setSkip({0, 1, 0}),
     PixelFormat::R8Unorm, {6, 4}, OriginalJpegGrayscaleData};
 
 void StbImageConverterTest::jpegGrayscale80Percent() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_JPEG
+    CORRADE_SKIP("JPEG output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbJpegImageConverter");
     CORRADE_COMPARE(converter->extension(), "jpg");
     CORRADE_COMPARE(converter->mimeType(), "image/jpeg");
@@ -657,6 +725,9 @@ void StbImageConverterTest::jpegGrayscale80Percent() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    CORRADE_SKIP("StbImageImporter JPEG support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -686,6 +757,10 @@ constexpr const char ConvertedRgbData[] = {
 };
 
 void StbImageConverterTest::pngRgb() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_PNG
+    CORRADE_SKIP("PNG output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbPngImageConverter");
     CORRADE_COMPARE(converter->extension(), "png");
     CORRADE_COMPARE(converter->mimeType(), "image/png");
@@ -695,6 +770,9 @@ void StbImageConverterTest::pngRgb() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("StbImageImporter PNG support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -726,6 +804,10 @@ constexpr const char ConvertedGrayscaleData[] = {
 };
 
 void StbImageConverterTest::pngGrayscale() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_PNG
+    CORRADE_SKIP("PNG output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbPngImageConverter");
     CORRADE_COMPARE(converter->extension(), "png");
     CORRADE_COMPARE(converter->mimeType(), "image/png");
@@ -735,6 +817,9 @@ void StbImageConverterTest::pngGrayscale() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("StbImageImporter PNG support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("PngImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -764,6 +849,10 @@ constexpr const char ConvertedRgbaData[] = {
 };
 
 void StbImageConverterTest::tgaRgba() {
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_TGA
+    CORRADE_SKIP("TGA output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("StbTgaImageConverter");
     CORRADE_COMPARE(converter->extension(), "tga");
     CORRADE_COMPARE(converter->mimeType(), "image/x-tga");
@@ -773,6 +862,9 @@ void StbImageConverterTest::tgaRgba() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_TGA
+    CORRADE_SKIP("StbImageImporter TGA support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openData(*data));
@@ -795,8 +887,28 @@ void StbImageConverterTest::convertToFile() {
     };
     ImageView2D image{PixelStorage{}.setAlignment(1), PixelFormat::RGB8Unorm, {2, 3}, RgbData};
 
+    /* The instance list mixes formats, so the ones left out of the build can
+       only be told apart here */
+    const Containers::StringView outputFilename = data.filename;
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_BMP
+    if(data.pluginName == "StbBmpImageConverter"_s || outputFilename.hasSuffix(".bmp"_s))
+        CORRADE_SKIP("BMP output is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_PNG
+    if(outputFilename.hasSuffix(".png"_s))
+        CORRADE_SKIP("PNG output is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_JPEG
+    if(outputFilename.hasSuffix(".jpg"_s) || outputFilename.hasSuffix(".jpe"_s))
+        CORRADE_SKIP("JPEG output is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_TGA
+    if(outputFilename.hasSuffix(".tga"_s))
+        CORRADE_SKIP("TGA output is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate(data.pluginName);
-    Containers::String filename = Utility::Path::join(STBIMAGECONVERTER_TEST_OUTPUT_DIR, data.filename);
+    Containers::String filename = Utility::Path::join(STBIMAGECONVERTER_TEST_OUTPUT_DIR, outputFilename);
     CORRADE_VERIFY(converter->convertToFile(image, filename));
 
     /* Verify it's actually the right format */
@@ -808,6 +920,22 @@ void StbImageConverterTest::convertToFile() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_BMP
+    if(data.pluginName == "StbBmpImageConverter"_s || outputFilename.hasSuffix(".bmp"_s))
+        CORRADE_SKIP("StbImageImporter BMP support is not compiled in, cannot test");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    if(outputFilename.hasSuffix(".png"_s))
+        CORRADE_SKIP("StbImageImporter PNG support is not compiled in, cannot test");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    if(outputFilename.hasSuffix(".jpg"_s) || outputFilename.hasSuffix(".jpe"_s))
+        CORRADE_SKIP("StbImageImporter JPEG support is not compiled in, cannot test");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_TGA
+    if(outputFilename.hasSuffix(".tga"_s))
+        CORRADE_SKIP("StbImageImporter TGA support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(filename));
@@ -830,6 +958,10 @@ void StbImageConverterTest::convertToFileHdr() {
     /* Like convertToFile(), but specialized for *.hdr output where it only
        works with a floating-point pixel format */
 
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_HDR
+    CORRADE_SKIP("HDR output is not compiled in");
+    #endif
+
     const Float RgbData[]{
         1.0f, 2.0f, 3.0f, 2.0f, 3.0f, 4.0f,
         3.0f, 4.0f, 5.0f, 4.0f, 5.0f, 6.0f,
@@ -848,6 +980,9 @@ void StbImageConverterTest::convertToFileHdr() {
 
     if(_importerManager.loadState("StbImageImporter") == PluginManager::LoadState::NotFound)
         CORRADE_SKIP("StbImageImporter plugin not found, cannot test");
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("StbImageImporter HDR support is not compiled in, cannot test");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _importerManager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(filename));
@@ -866,6 +1001,10 @@ void StbImageConverterTest::convertToFileHdr() {
 void StbImageConverterTest::unsupportedMetadata() {
     auto&& data = UnsupportedMetadataData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGECONVERTER_NO_TGA
+    CORRADE_SKIP("TGA output is not compiled in");
+    #endif
 
     Containers::Pointer<AbstractImageConverter> converter = _converterManager.instantiate("TgaImageConverter");
     converter->addFlags(data.converterFlags);

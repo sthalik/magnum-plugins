@@ -319,6 +319,10 @@ StbImageImporterTest::StbImageImporterTest() {
 }
 
 void StbImageImporterTest::empty() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("PngImporter");
 
     Containers::String out;
@@ -341,6 +345,10 @@ void StbImageImporterTest::invalid() {
 }
 
 void StbImageImporterTest::grayPng() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "gray.png")));
 
@@ -357,6 +365,10 @@ void StbImageImporterTest::grayPng() {
 }
 
 void StbImageImporterTest::grayPngFourChannel() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "gray.png")));
 
@@ -380,6 +392,10 @@ void StbImageImporterTest::grayPngFourChannel() {
 }
 
 void StbImageImporterTest::grayPngFiveChannel() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "gray.png")));
 
@@ -392,6 +408,10 @@ void StbImageImporterTest::grayPngFiveChannel() {
 }
 
 void StbImageImporterTest::grayPng16() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "gray16.png")));
 
@@ -412,6 +432,10 @@ void StbImageImporterTest::grayPng16() {
 void StbImageImporterTest::grayPng16FourChannel() {
     auto&& data = GrayPng16FourChannelData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     if(data.verbose)
@@ -442,6 +466,10 @@ void StbImageImporterTest::grayPng16FourChannel() {
 }
 
 void StbImageImporterTest::grayJpeg() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    CORRADE_SKIP("JPEG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(JPEGIMPORTER_TEST_DIR, "gray.jpg")));
 
@@ -458,6 +486,10 @@ void StbImageImporterTest::grayJpeg() {
 }
 
 void StbImageImporterTest::rgbPng() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "rgb.png")));
 
@@ -478,6 +510,10 @@ void StbImageImporterTest::rgbPng() {
 }
 
 void StbImageImporterTest::rgbPngOneChannel() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "rgb.png")));
 
@@ -497,6 +533,10 @@ void StbImageImporterTest::rgbPngOneChannel() {
 }
 
 void StbImageImporterTest::rgbPng16() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "rgb16.png")));
 
@@ -515,6 +555,10 @@ void StbImageImporterTest::rgbPng16() {
 }
 
 void StbImageImporterTest::rgbPng16OneChannel() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "rgb16.png")));
 
@@ -537,6 +581,10 @@ void StbImageImporterTest::rgbPng16OneChannel() {
 }
 
 void StbImageImporterTest::rgbJpeg() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    CORRADE_SKIP("JPEG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(JPEGIMPORTER_TEST_DIR, "rgb.jpg")));
 
@@ -558,6 +606,10 @@ void StbImageImporterTest::rgbJpeg() {
 }
 
 void StbImageImporterTest::rgbHdr() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("HDR support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(STBIMAGEIMPORTER_TEST_DIR, "rgb.hdr")));
 
@@ -576,6 +628,10 @@ void StbImageImporterTest::rgbHdr() {
 }
 
 void StbImageImporterTest::rgbHdrOneChannel() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("HDR support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
 
     importer->configuration().setValue("forceChannelCount", 1);
@@ -597,6 +653,10 @@ void StbImageImporterTest::rgbHdrOneChannel() {
 }
 
 void StbImageImporterTest::rgbHdrFourChannels() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("HDR support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
 
     importer->configuration().setValue("forceChannelCount", 4);
@@ -619,6 +679,10 @@ void StbImageImporterTest::rgbHdrFourChannels() {
 }
 
 void StbImageImporterTest::rgbHdrInvalid() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    CORRADE_SKIP("HDR support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     /* The open does just a memory copy, so it doesn't fail. Supply just the
        header so the HDR detection succeeds, but the subsequent import fails. */
@@ -633,6 +697,10 @@ void StbImageImporterTest::rgbHdrInvalid() {
 void StbImageImporterTest::rgbaPng() {
     auto&& data = RgbaPngTestData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
 
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, data.filename)));
@@ -654,6 +722,10 @@ void StbImageImporterTest::rgbaPng() {
 }
 
 void StbImageImporterTest::animatedGif() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_GIF
+    CORRADE_SKIP("GIF support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
 
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(STBIMAGEIMPORTER_TEST_DIR, "dispose_bgnd.gif")));
@@ -697,6 +769,20 @@ void StbImageImporterTest::forceBitDepth8() {
     auto&& data = ForceBitDepth8Data[testCaseInstanceId()];
     setTestCaseDescription(data.name);
 
+    /* The instance list mixes formats, so the ones left out of the build can
+       only be told apart here */
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    if(data.filename.hasSuffix(".jpg"))
+        CORRADE_SKIP("JPEG support is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    if(data.filename.hasSuffix(".hdr"))
+        CORRADE_SKIP("HDR support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("PngImporter");
     importer->configuration().setValue("forceBitDepth", 8);
     if(data.verbose)
@@ -721,6 +807,18 @@ void StbImageImporterTest::forceBitDepth8() {
 void StbImageImporterTest::forceBitDepth16() {
     auto&& data = ForceBitDepth16Data[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_JPEG
+    if(data.filename.hasSuffix(".jpg"))
+        CORRADE_SKIP("JPEG support is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    if(data.filename.hasSuffix(".hdr"))
+        CORRADE_SKIP("HDR support is not compiled in");
+    #endif
 
     /* Like forceBitDepth8(), just using a different type for the expected
        data */
@@ -749,6 +847,14 @@ void StbImageImporterTest::forceBitDepth32() {
     auto&& data = ForceBitDepth32Data[testCaseInstanceId()];
     setTestCaseDescription(data.name);
 
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_HDR
+    if(data.filename.hasSuffix(".hdr"))
+        CORRADE_SKIP("HDR support is not compiled in");
+    #endif
+
     /* Like forceBitDepth8(), just using a different type for the expected
        data */
 
@@ -774,6 +880,10 @@ void StbImageImporterTest::forceBitDepth32() {
 }
 
 void StbImageImporterTest::forceBitDepthInvalid() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("PngImporter");
     importer->configuration().setValue("forceBitDepth", 4);
 
@@ -788,6 +898,10 @@ void StbImageImporterTest::forceBitDepthInvalid() {
 void StbImageImporterTest::openMemory() {
     auto&& data = OpenMemoryData[testCaseInstanceId()];
     setTestCaseDescription(data.name);
+
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
 
     /* Same as grayPng() except that it uses openData() & openMemory() instead
        of openFile() to test data copying on import */
@@ -810,6 +924,10 @@ void StbImageImporterTest::openMemory() {
 }
 
 void StbImageImporterTest::openTwice() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
 
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "gray.png")));
@@ -819,6 +937,10 @@ void StbImageImporterTest::openTwice() {
 }
 
 void StbImageImporterTest::importTwice() {
+    #ifdef MAGNUM_STBIMAGEIMPORTER_NO_PNG
+    CORRADE_SKIP("PNG support is not compiled in");
+    #endif
+
     Containers::Pointer<AbstractImporter> importer = _manager.instantiate("StbImageImporter");
     CORRADE_VERIFY(importer->openFile(Utility::Path::join(PNGIMPORTER_TEST_DIR, "gray.png")));
 

@@ -106,7 +106,8 @@ namespace Magnum {
     Vcpkg package
 -   **Stanislaw Halik** ([\@sthalik](https://github.com/sthalik)) --- build
     fixes, toggles for binary size reduction in the @relativeref{Trade,StbImageImporter} and
-    @relativeref{Trade,StbImageConverter} plugins
+    @relativeref{Trade,StbImageConverter} plugins, @relativeref{Trade,JxlImporter}
+    and @relativeref{Trade,JxlImageConverter} plugins
 -   **Tobias Stein** ([\@NussknackerXXL](https://github.com/NussknackerXXL))
     --- the @relativeref{Trade,TinyGltfImporter} plugin
 */

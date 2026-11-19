@@ -513,6 +513,11 @@ By default no plugins are built and you need to select them manually:
     [libJPEG](https://ijg.org).
 -   `MAGNUM_WITH_JPEGIMPORTER` --- Build the @relativeref{Trade,JpegImporter}
     plugin. Depends on [libJPEG](https://ijg.org).
+-   `MAGNUM_WITH_JXLIMAGECONVERTER` --- Build the
+    @relativeref{Trade,JxlImageConverter} plugin. Depends on
+    [libjxl](https://github.com/libjxl/libjxl), version 0.8 or newer.
+-   `MAGNUM_WITH_JXLIMPORTER` --- Build the @relativeref{Trade,JxlImporter}
+    plugin. Depends on [libjxl](https://github.com/libjxl/libjxl).
 -   `MAGNUM_WITH_KTXIMAGECONVERTER` --- Build the
     @relativeref{Trade,KtxImageConverter} plugin.
 -   `MAGNUM_WITH_KTXIMPORTER` --- Build the

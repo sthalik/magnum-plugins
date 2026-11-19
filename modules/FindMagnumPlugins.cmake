@@ -33,6 +33,8 @@
 #  IcoImporter                  - ICO importer
 #  JpegImageConverter           - JPEG image converter
 #  JpegImporter                 - JPEG importer
+#  JxlImageConverter            - JPEG XL image converter
+#  JxlImporter                  - JPEG XL importer
 #  KtxImageConverter            - KTX image converter
 #  KtxImporter                  - KTX importer
 #  LunaSvgImporter              - SVG importer using LunaSVG
@@ -177,7 +179,7 @@ mark_as_advanced(MAGNUMPLUGINS_INCLUDE_DIR)
 find_path(_MAGNUMPLUGINS_DEPENDENCY_MODULE_DIR
     NAMES
         FindAssimp.cmake FindBasisUniversal.cmake FindDevIL.cmake
-        FindFAAD2.cmake FindGlslang.cmake FindHarfBuzz.cmake
+        FindFAAD2.cmake FindGlslang.cmake FindHarfBuzz.cmake FindJxl.cmake
         FindOpenEXR.cmake FindResvg.cmake FindSpirvTools.cmake FindSpng.cmake
         FindWebP.cmake FindZstd.cmake
     PATH_SUFFIXES share/cmake/MagnumPlugins/dependencies)
@@ -203,6 +205,7 @@ set(_MAGNUMPLUGINS_PLUGIN_COMPONENTS
     DrMp3AudioImporter DrWavAudioImporter EtcDecImageConverter
     Faad2AudioImporter FreeTypeFont GlslangShaderConverter GltfImporter
     GltfSceneConverter HarfBuzzFont IcoImporter JpegImageConverter JpegImporter
+    JxlImageConverter JxlImporter
     KtxImageConverter KtxImporter LunaSvgImporter MeshOptimizerSceneConverter
     MiniExrImageConverter OpenExrImageConverter OpenExrImporter
     PlutoSvgImporter PngImageConverter PngImporter PrimitiveImporter
@@ -629,6 +632,11 @@ foreach(_component ${MagnumPlugins_FIND_COMPONENTS})
                         INTERFACE_LINK_LIBRARIES ${JPEG_LIBRARIES})
                 endif()
             endif()
+
+        elseif(_component STREQUAL JxlImageConverter OR _component STREQUAL JxlImporter)
+            find_package(Jxl REQUIRED)
+            set_property(TARGET MagnumPlugins::${_component} APPEND PROPERTY
+                INTERFACE_LINK_LIBRARIES Jxl::Jxl Jxl::Threads)
 
         # KtxImageConverter has no dependencies
         # KtxImporter has no dependencies

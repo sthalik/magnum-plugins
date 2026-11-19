@@ -106,6 +106,14 @@
 /** @dir MagnumPlugins/JpegImporter
  * @brief Plugin @ref Magnum::Trade::JpegImporter
  */
+/** @dir MagnumPlugins/JxlImageConverter
+ * @brief Plugin @ref Magnum::Trade::JxlImageConverter
+ * @m_since_latest_{plugins}
+ */
+/** @dir MagnumPlugins/JxlImporter
+ * @brief Plugin @ref Magnum::Trade::JxlImporter
+ * @m_since_latest_{plugins}
+ */
 /** @dir MagnumPlugins/KtxImageConverter
  * @brief Plugin @ref Magnum::Trade::KtxImageConverter
  * @m_since_latest_{plugins}
